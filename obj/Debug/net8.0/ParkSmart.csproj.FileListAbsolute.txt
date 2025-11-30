@@ -174,3 +174,4 @@ C:\Users\jorda\OneDrive\Escritorio\Sistemas propiertarios\Proyecto Final v2\Park
 C:\Users\jorda\OneDrive\Escritorio\Sistemas propiertarios\Proyecto Final v2\ParkSmart\obj\Debug\net8.0\ParkSmart.pdb
 C:\Users\jorda\OneDrive\Escritorio\Sistemas propiertarios\Proyecto Final v2\ParkSmart\obj\Debug\net8.0\ParkSmart.genruntimeconfig.cache
 C:\Users\jorda\OneDrive\Escritorio\Sistemas propiertarios\Proyecto Final v2\ParkSmart\obj\Debug\net8.0\ref\ParkSmart.dll
+C:\Users\jorda\OneDrive\Escritorio\Sistemas propiertarios\Proyecto Final v2\ParkSmart\obj\Debug\net8.0\ParkSmart.sourcelink.json

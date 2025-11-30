@@ -23,7 +23,7 @@ public class Usuario
 
     [Required]
     [MaxLength(20)]
-    public string rol { get; set; } = "Operador"; // Admin, Gerente, Operador
+    public string rol { get; set; } = "Empleado"; // Admin, Gerente, Empleado
 
     public DateTime fechaCreacion { get; set; } = FechaHelper.AhoraLocal();
 

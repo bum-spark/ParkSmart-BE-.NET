@@ -304,7 +304,7 @@ public class AsignacionCajonService : IAsignacionCajonService
             return true;
         }
 
-        public async Task<CalculoPagoTicketDTO?> CalcularPagoTicket(Guid ticketId)
+        public async Task<CalculoPagoTicketDTO> CalcularPagoTicket(Guid ticketId)
         {
             var ticket = await _context.Tickets
                 .Include(t => t.cajon)
