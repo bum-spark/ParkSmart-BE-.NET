@@ -1,0 +1,3033 @@
+{
+	"info": {
+		"_postman_id": "760c3b0c-53cb-4283-a9d4-b94db2d9ddf9",
+		"name": "TEST ParkSmart",
+		"description": "Colección TEST ParkSmart. La autenticación Bearer Token está configurada a nivel de colección usando la variable {{token}}. Todos los endpoints heredan este valor automáticamente.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "46314587",
+		"_collection_link": "https://jordancazares.postman.co/workspace/Jordan-Cazares's-Workspace~4a31abff-2678-4326-8c79-d70addf56a7c/collection/46314587-760c3b0c-53cb-4283-a9d4-b94db2d9ddf9?action=share&source=collection_link&creator=46314587"
+	},
+	"item": [
+		{
+			"name": "Auth EndPoints",
+			"item": [
+				{
+					"name": "Registrar usuario",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombreCompleto\": \"Juan Pérez\",\n  \"email\": \"juan@parksmart.com\",\n  \"password\": \"ana123\",\n  \"rol\": \"Admin\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}auth/registro",
+							"host": [
+								"{{base_url}}auth"
+							],
+							"path": [
+								"registro"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": [
+						{
+							"name": "Exito #1",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"nombreCompleto\": \"Juan Pérez\",\n  \"email\": \"juan@parksmart.com\",\n  \"password\": \"ana123\",\n  \"rol\": \"Admin\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}auth/registro",
+									"host": [
+										"{{base_url}}auth"
+									],
+									"path": [
+										"registro"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 25 Nov 2025 03:38:08 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"msg\": \"El usuario se creó correctamente!\",\n    \"data\": {\n        \"email\": \"juan@parksmart.com\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData;",
+									"try {",
+									"    jsonData = pm.response.json();",
+									"} catch (e) {",
+									"    jsonData = {};",
+									"}",
+									"",
+									"if (jsonData && jsonData.token) {",
+									"    pm.collectionVariables.set(\"token\", jsonData.token);",
+									"    console.log(\"Token actualizado en variables de colección:\", jsonData.token);",
+									"} else {",
+									"    console.log(\"No se encontró el campo 'token' en la respuesta.\");",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"juan@parksmart.com\",\r\n  \"password\": \"1234567890\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}auth/login",
+							"host": [
+								"{{base_url}}auth"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"email\": \"ana@parksmart.com\",\r\n  \"password\": \"ana123\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}auth/login",
+									"host": [
+										"{{base_url}}auth"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 21 Nov 2025 04:16:25 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"msg\": \"Login exitoso\",\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwZDMwM2JiMy1lMmRiLTQyYzgtYjlkMy0zNjZlY2UxMmEyMTUiLCJuYW1lIjoiQW5hIFDDqXJleiIsImVtYWlsIjoiYW5hQHBhcmtzbWFydC5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsImV4cCI6MTc2MzcwMjE4NSwiaXNzIjoiUGFya1NtYXJ0QVBJIiwiYXVkIjoiUGFya1NtYXJ0Q2xpZW50cyJ9.66v6Eb9z9yRCmyQqQwpddCRR9x2LJj4Z1PfTKWOgjlg\",\n    \"usuario\": {\n        \"usuarioId\": \"0d303bb3-e2db-42c8-b9d3-366ece12a215\",\n        \"nombreCompleto\": \"Ana Pérez\",\n        \"email\": \"ana@parksmart.com\",\n        \"rol\": \"Admin\",\n        \"fechaCreacion\": \"2025-11-21T04:07:43.2711212\"\n    },\n    \"expiracion\": \"2025-11-21T05:16:25.5152346Z\"\n}"
+						},
+						{
+							"name": "Exito #2",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"email\": \"juan@parksmart.com\",\r\n  \"password\": \"ana123\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}auth/login",
+									"host": [
+										"{{base_url}}auth"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 25 Nov 2025 03:38:51 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"msg\": \"Login exitoso\",\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmNTNhMjdhZi1iYzIxLTRjNjctOTczNi1jZGVjNjU4MDgxMWYiLCJuYW1lIjoiSnVhbiBQw6lyZXoiLCJlbWFpbCI6Imp1YW5AcGFya3NtYXJ0LmNvbSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkFkbWluIiwiZXhwIjoxNzY0MDcwNzMyLCJpc3MiOiJQYXJrU21hcnRBUEkiLCJhdWQiOiJQYXJrU21hcnRDbGllbnRzIn0.DKLwDVyGHPnHtu_RZqu9BmkTI_J2XOkgGkO-uPmT1gI\",\n    \"usuario\": {\n        \"usuarioId\": \"f53a27af-bc21-4c67-9736-cdec6580811f\",\n        \"nombreCompleto\": \"Juan Pérez\",\n        \"email\": \"juan@parksmart.com\",\n        \"rol\": \"Admin\"\n    },\n    \"expiracion\": \"2025-11-25T11:38:52.1422325Z\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Obtener usuario",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}Auth/usuario/f53a27af-bc21-4c67-9736-cdec6580811f",
+							"host": [
+								"{{base_url}}Auth"
+							],
+							"path": [
+								"usuario",
+								"f53a27af-bc21-4c67-9736-cdec6580811f"
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": [
+						{
+							"name": "Get data",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}Auth/usuario/0d303bb3-e2db-42c8-b9d3-366ece12a215",
+									"host": [
+										"{{base_url}}Auth"
+									],
+									"path": [
+										"usuario",
+										"0d303bb3-e2db-42c8-b9d3-366ece12a215"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 21 Nov 2025 04:10:46 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"msg\": \"Usuario encontrado\",\n    \"data\": {\n        \"usuarioId\": \"0d303bb3-e2db-42c8-b9d3-366ece12a215\",\n        \"nombreCompleto\": \"Ana Pérez\",\n        \"email\": \"ana@parksmart.com\",\n        \"rol\": \"Admin\",\n        \"fechaCreacion\": \"2025-11-21T04:07:43.2711212\"\n    }\n}"
+						},
+						{
+							"name": "Exito #2",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}Auth/usuario/f53a27af-bc21-4c67-9736-cdec6580811f",
+									"host": [
+										"{{base_url}}Auth"
+									],
+									"path": [
+										"usuario",
+										"f53a27af-bc21-4c67-9736-cdec6580811f"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 25 Nov 2025 03:39:57 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"msg\": \"Usuario encontrado\",\n    \"data\": {\n        \"usuarioId\": \"f53a27af-bc21-4c67-9736-cdec6580811f\",\n        \"nombreCompleto\": \"Juan Pérez\",\n        \"email\": \"juan@parksmart.com\",\n        \"rol\": \"Admin\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Actualizar info",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombreCompleto\": \"Pip\",\r\n  \"email\": \"juan@parksmart.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}Auth/usuario/f53a27af-bc21-4c67-9736-cdec6580811f",
+							"host": [
+								"{{base_url}}Auth"
+							],
+							"path": [
+								"usuario",
+								"f53a27af-bc21-4c67-9736-cdec6580811f"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Exito #1",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nombreCompleto\": \"Pedro\",\r\n  \"email\": \"ana@parksmart.com\",\r\n  \"rol\" : \"admin\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}Auth/usuario/8d9051cc-c755-4968-84e3-c1b7079312ce",
+									"host": [
+										"{{base_url}}Auth"
+									],
+									"path": [
+										"usuario",
+										"8d9051cc-c755-4968-84e3-c1b7079312ce"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 23 Nov 2025 05:57:15 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"msg\": \"Usuario actualizado exitosamente\",\n    \"data\": {\n        \"usuarioId\": \"8d9051cc-c755-4968-84e3-c1b7079312ce\",\n        \"nombreCompleto\": \"Pedro\",\n        \"email\": \"ana@parksmart.com\",\n        \"rol\": \"admin\",\n        \"fechaCreacion\": \"2025-11-23T05:08:00.4823988\"\n    }\n}"
+						},
+						{
+							"name": "Exito #2",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nombreCompleto\": \"Pip\",\r\n  \"email\": \"juan@parksmart.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}Auth/usuario/f53a27af-bc21-4c67-9736-cdec6580811f",
+									"host": [
+										"{{base_url}}Auth"
+									],
+									"path": [
+										"usuario",
+										"f53a27af-bc21-4c67-9736-cdec6580811f"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 25 Nov 2025 03:41:09 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"msg\": \"Usuario actualizado exitosamente\",\n    \"data\": {\n        \"usuarioId\": \"f53a27af-bc21-4c67-9736-cdec6580811f\",\n        \"nombreCompleto\": \"Pip\",\n        \"email\": \"juan@parksmart.com\",\n        \"rol\": \"Admin\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Actualizar contraseña",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"passwordActual\": \"ana123\",\r\n  \"passwordNueva\": \"1234567890\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}Auth/usuario/cambiar-password",
+							"host": [
+								"{{base_url}}Auth"
+							],
+							"path": [
+								"usuario",
+								"cambiar-password"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Exito #1",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"passwordActual\": \"ana123\",\r\n  \"passwordNueva\": \"ana1234\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}Auth/usuario/8d9051cc-c755-4968-84e3-c1b7079312ce/cambiar-password",
+									"host": [
+										"{{base_url}}Auth"
+									],
+									"path": [
+										"usuario",
+										"8d9051cc-c755-4968-84e3-c1b7079312ce",
+										"cambiar-password"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 23 Nov 2025 05:58:52 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"msg\": \"Contraseña cambiada exitosamente\"\n}"
+						},
+						{
+							"name": "Exito #2",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"passwordActual\": \"ana123\",\r\n  \"passwordNueva\": \"pepe1234\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}Auth/usuario/cambiar-password",
+									"host": [
+										"{{base_url}}Auth"
+									],
+									"path": [
+										"usuario",
+										"cambiar-password"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 25 Nov 2025 03:55:58 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"msg\": \"Contraseña cambiada exitosamente\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Actualizar rol",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nuevoRol\": \"Admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}Auth/usuario/cambiar-rol",
+							"host": [
+								"{{base_url}}Auth"
+							],
+							"path": [
+								"usuario",
+								"cambiar-rol"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Exito#1",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nuevoRol\": \"Admin\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}Auth/usuario/cambiar-rol",
+									"host": [
+										"{{base_url}}Auth"
+									],
+									"path": [
+										"usuario",
+										"cambiar-rol"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 25 Nov 2025 04:01:33 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"msg\": \"Se cambió correctamente el rol\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Obtener usuarios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}Auth/usuarios",
+							"host": [
+								"{{base_url}}Auth"
+							],
+							"path": [
+								"usuarios"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Exito #1",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}Auth/usuarios",
+									"host": [
+										"{{base_url}}Auth"
+									],
+									"path": [
+										"usuarios"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 06 Dec 2025 19:33:57 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"msg\": \"Usuarios obtenidos correctamente\",\n    \"total\": 6,\n    \"data\": [\n        {\n            \"usuarioId\": \"3c6dfc6c-077b-4a51-849b-0b93df515524\",\n            \"nombreCompleto\": \"Jordan\",\n            \"email\": \"jor@gmail.com\",\n            \"rol\": \"Admin\"\n        },\n        {\n            \"usuarioId\": \"52cd8565-71b1-4561-8ad8-0d8468a6137c\",\n            \"nombreCompleto\": \"Abi\",\n            \"email\": \"abi@gmail.com\",\n            \"rol\": \"Empleado\"\n        },\n        {\n            \"usuarioId\": \"02f8a145-6fe6-4941-a2bf-ae470e303e75\",\n            \"nombreCompleto\": \"Alexis Espinosa\",\n            \"email\": \"alexis@gmail.com\",\n            \"rol\": \"Empleado\"\n        },\n        {\n            \"usuarioId\": \"8d9051cc-c755-4968-84e3-c1b7079312ce\",\n            \"nombreCompleto\": \"Pedro\",\n            \"email\": \"ana@parksmart.com\",\n            \"rol\": \"Admin\"\n        },\n        {\n            \"usuarioId\": \"f53a27af-bc21-4c67-9736-cdec6580811f\",\n            \"nombreCompleto\": \"Pip\",\n            \"email\": \"juan@parksmart.com\",\n            \"rol\": \"Gerente\"\n        },\n        {\n            \"usuarioId\": \"a9b73c5c-15ce-4d70-8999-d99e1c7336ac\",\n            \"nombreCompleto\": \"Peter\",\n            \"email\": \"pete@gmail.com\",\n            \"rol\": \"Empleado\"\n        }\n    ]\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Sede EndPoints",
+			"item": [
+				{
+					"name": "Crear Sede",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombre\": \"Sanmiguelito\",\r\n  \"direccion\": \"San miguel de Allende\",\r\n  \"passwordAcceso\": \"1234\",\r\n  \"tarifaPorHora\": 25.00,\r\n  \"multaPorHora\": 30.00,\r\n  \"multaConTope\": true,\r\n  \"montoMaximoMulta\": 100.00,\r\n  \"niveles\": [\r\n    {\r\n      \"numeroPiso\": 1,\r\n      \"capacidad\": 5\r\n    },\r\n    {\r\n      \"numeroPiso\": 2,\r\n      \"capacidad\": 6\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}sede",
+							"host": [
+								"{{base_url}}sede"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Prueba crear sede",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nombre\": \"Plaza Central Mall\",\r\n  \"direccion\": \"Av. Reforma 222, CDMX\",\r\n  \"passwordAcceso\": \"1234\",\r\n  \"tarifaPorHora\": 25.00,\r\n  \"multaPorHora\": 30.00,\r\n  \"multaConTope\": true,\r\n  \"montoMaximoMulta\": 100.00,\r\n  \"niveles\": [\r\n    {\r\n      \"numeroPiso\": 1,\r\n      \"capacidad\": 5\r\n    },\r\n    {\r\n      \"numeroPiso\": 2,\r\n      \"capacidad\": 6\r\n    }\r\n  ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}sede",
+									"host": [
+										"{{base_url}}sede"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 21 Nov 2025 05:19:45 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"msg\": \"Sede creada exitosamente\",\n    \"sede\": {\n        \"sedeId\": \"e6948da9-9673-49b0-b992-f0de1f9332ef\",\n        \"nombre\": \"Plaza Central Mall\",\n        \"direccion\": \"Av. Reforma 222, CDMX\",\n        \"estado\": \"activo\",\n        \"tarifaPorHora\": 25,\n        \"multaPorHora\": 30,\n        \"multaConTope\": true,\n        \"montoMaximoMulta\": 100,\n        \"fechaCreacion\": \"2025-11-21T05:19:45.70603Z\",\n        \"creadoPorUsuarioId\": \"0d303bb3-e2db-42c8-b9d3-366ece12a215\",\n        \"nombreCreador\": \"Ana Pérez\",\n        \"totalNiveles\": 2,\n        \"totalCajones\": 11,\n        \"cajonesLibres\": 11,\n        \"cajonesOcupados\": 0\n    }\n}"
+						},
+						{
+							"name": "Exito #2",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nombre\": \"Sanmiguelito\",\r\n  \"direccion\": \"San miguel de Allende\",\r\n  \"passwordAcceso\": \"1234\",\r\n  \"tarifaPorHora\": 25.00,\r\n  \"multaPorHora\": 30.00,\r\n  \"multaConTope\": true,\r\n  \"montoMaximoMulta\": 100.00,\r\n  \"niveles\": [\r\n    {\r\n      \"numeroPiso\": 1,\r\n      \"capacidad\": 5\r\n    },\r\n    {\r\n      \"numeroPiso\": 2,\r\n      \"capacidad\": 6\r\n    }\r\n  ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}sede",
+									"host": [
+										"{{base_url}}sede"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 25 Nov 2025 04:09:51 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"msg\": \"Sede creada exitosamente\",\n    \"sede\": {\n        \"sedeId\": \"b9562d90-0128-40c5-99de-9377ae5f696e\",\n        \"nombre\": \"Sanmiguelito\",\n        \"direccion\": \"San miguel de Allende\",\n        \"estado\": \"activo\",\n        \"tarifaPorHora\": 25,\n        \"creadoPorUsuarioId\": \"f53a27af-bc21-4c67-9736-cdec6580811f\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Obtener sedes",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}sede",
+							"host": [
+								"{{base_url}}sede"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Obtener Sedes #1",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base_url}}sede",
+									"host": [
+										"{{base_url}}sede"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 21 Nov 2025 05:27:19 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"msg\": \"Se encontraron sedes\",\n    \"data\": [\n        {\n            \"sedeId\": \"e6948da9-9673-49b0-b992-f0de1f9332ef\",\n            \"nombre\": \"Plaza Central Mall\",\n            \"direccion\": \"Av. Reforma 222, CDMX\",\n            \"estado\": \"activo\",\n            \"tarifaPorHora\": 25,\n            \"multaPorHora\": 30,\n            \"multaConTope\": true,\n            \"montoMaximoMulta\": 100,\n            \"fechaCreacion\": \"2025-11-21T05:19:45.70603\",\n            \"creadoPorUsuarioId\": \"0d303bb3-e2db-42c8-b9d3-366ece12a215\",\n            \"nombreCreador\": \"Ana Pérez\",\n            \"totalNiveles\": 2,\n            \"totalCajones\": 11,\n            \"cajonesLibres\": 11,\n            \"cajonesOcupados\": 0\n        }\n    ]\n}"
+						},
+						{
+							"name": "Exito #2",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base_url}}sede",
+									"host": [
+										"{{base_url}}sede"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 25 Nov 2025 04:10:20 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"msg\": \"Se encontraron sedes\",\n    \"data\": [\n        {\n            \"sedeId\": \"b9562d90-0128-40c5-99de-9377ae5f696e\",\n            \"nombre\": \"Sanmiguelito\",\n            \"direccion\": \"San miguel de Allende\",\n            \"estado\": \"activo\",\n            \"tarifaPorHora\": 25,\n            \"multaPorHora\": 30,\n            \"multaConTope\": true,\n            \"montoMaximoMulta\": 100,\n            \"fechaCreacion\": \"2025-11-25T04:09:51.1239968\",\n            \"creadoPorUsuarioId\": \"f53a27af-bc21-4c67-9736-cdec6580811f\",\n            \"nombreCreador\": \"Pip\",\n            \"totalNiveles\": 2,\n            \"totalCajones\": 11,\n            \"cajonesLibres\": 11,\n            \"cajonesOcupados\": 0\n        },\n        {\n            \"sedeId\": \"7426b909-78b9-4e93-98cb-c35b1d13b77b\",\n            \"nombre\": \"ejemplo\",\n            \"direccion\": \"Porola, SMA, gto\",\n            \"estado\": \"activo\",\n            \"tarifaPorHora\": 25,\n            \"multaPorHora\": 30,\n            \"multaConTope\": true,\n            \"montoMaximoMulta\": 100,\n            \"fechaCreacion\": \"2025-11-23T05:09:26.0227774\",\n            \"creadoPorUsuarioId\": \"8d9051cc-c755-4968-84e3-c1b7079312ce\",\n            \"nombreCreador\": \"Pedro\",\n            \"totalNiveles\": 2,\n            \"totalCajones\": 11,\n            \"cajonesLibres\": 7,\n            \"cajonesOcupados\": 2\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Obtener sede por id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}sede/b9562d90-0128-40c5-99de-9377ae5f696e",
+							"host": [
+								"{{base_url}}sede"
+							],
+							"path": [
+								"b9562d90-0128-40c5-99de-9377ae5f696e"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Obtener sede por id #1",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base_url}}sede/e6948da9-9673-49b0-b992-f0de1f9332ef",
+									"host": [
+										"{{base_url}}sede"
+									],
+									"path": [
+										"e6948da9-9673-49b0-b992-f0de1f9332ef"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 21 Nov 2025 05:30:05 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"msg\": \"Se encontró la sede\",\n    \"data\": {\n        \"sedeId\": \"e6948da9-9673-49b0-b992-f0de1f9332ef\",\n        \"nombre\": \"Plaza Central Mall\",\n        \"direccion\": \"Av. Reforma 222, CDMX\",\n        \"estado\": \"activo\",\n        \"tarifaPorHora\": 25,\n        \"multaPorHora\": 30,\n        \"multaConTope\": true,\n        \"montoMaximoMulta\": 100,\n        \"fechaCreacion\": \"2025-11-21T05:19:45.70603\",\n        \"creadoPorUsuarioId\": \"0d303bb3-e2db-42c8-b9d3-366ece12a215\",\n        \"nombreCreador\": \"Ana Pérez\",\n        \"totalNiveles\": 2,\n        \"totalCajones\": 11,\n        \"cajonesLibres\": 11,\n        \"cajonesOcupados\": 0\n    }\n}"
+						},
+						{
+							"name": "Exito #2",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base_url}}sede/b9562d90-0128-40c5-99de-9377ae5f696e",
+									"host": [
+										"{{base_url}}sede"
+									],
+									"path": [
+										"b9562d90-0128-40c5-99de-9377ae5f696e"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 25 Nov 2025 04:11:02 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"msg\": \"Se encontró la sede\",\n    \"data\": {\n        \"sedeId\": \"b9562d90-0128-40c5-99de-9377ae5f696e\",\n        \"nombre\": \"Sanmiguelito\",\n        \"direccion\": \"San miguel de Allende\",\n        \"estado\": \"activo\",\n        \"tarifaPorHora\": 25,\n        \"multaPorHora\": 30,\n        \"multaConTope\": true,\n        \"montoMaximoMulta\": 100,\n        \"fechaCreacion\": \"2025-11-25T04:09:51.1239968\",\n        \"creadoPorUsuarioId\": \"f53a27af-bc21-4c67-9736-cdec6580811f\",\n        \"nombreCreador\": \"Pip\",\n        \"totalNiveles\": 2,\n        \"totalCajones\": 11,\n        \"cajonesLibres\": 11,\n        \"cajonesOcupados\": 0\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Verificar acceso a sede",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"sedeId\": \"b9562d90-0128-40c5-99de-9377ae5f696e\",\r\n  \"passwordAcceso\": \"1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}sede/verificar-acceso",
+							"host": [
+								"{{base_url}}sede"
+							],
+							"path": [
+								"verificar-acceso"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Contraseña correcta",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"sedeId\": \"e6948da9-9673-49b0-b992-f0de1f9332ef\",\r\n  \"passwordAcceso\": \"1234\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}sede/verificar-acceso",
+									"host": [
+										"{{base_url}}sede"
+									],
+									"path": [
+										"verificar-acceso"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 21 Nov 2025 05:38:53 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"msg\": \"Acceso permitido y registrado\",\n    \"sedeId\": \"e6948da9-9673-49b0-b992-f0de1f9332ef\",\n    \"usuarioId\": \"0d303bb3-e2db-42c8-b9d3-366ece12a215\",\n    \"validoHasta\": \"2025-11-21T13:38:53.4733654Z\"\n}"
+						},
+						{
+							"name": "Exito #2",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"sedeId\": \"b9562d90-0128-40c5-99de-9377ae5f696e\",\r\n  \"passwordAcceso\": \"1234\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}sede/verificar-acceso",
+									"host": [
+										"{{base_url}}sede"
+									],
+									"path": [
+										"verificar-acceso"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 25 Nov 2025 04:11:32 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"msg\": \"Acceso permitido y registrado\",\n    \"sedeId\": \"b9562d90-0128-40c5-99de-9377ae5f696e\",\n    \"usuarioId\": \"f53a27af-bc21-4c67-9736-cdec6580811f\",\n    \"validoHasta\": \"2025-11-25T12:11:32.9787043Z\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Cambiar estado sede",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwZDMwM2JiMy1lMmRiLTQyYzgtYjlkMy0zNjZlY2UxMmEyMTUiLCJuYW1lIjoiQW5hIFDDqXJleiIsImVtYWlsIjoiYW5hQHBhcmtzbWFydC5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsImV4cCI6MTc2MzcwNTk3MSwiaXNzIjoiUGFya1NtYXJ0QVBJIiwiYXVkIjoiUGFya1NtYXJ0Q2xpZW50cyJ9.UR5N5kPnsT1ghrM6YdzBR-BXyUq-RUkOdn-6_kjcLwk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nuevoEstado\": \"Mantenimiento\",\r\n  \"contraseñaCreador\": \"ana123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}sede/e6948da9-9673-49b0-b992-f0de1f9332ef/estado",
+							"host": [
+								"{{base_url}}sede"
+							],
+							"path": [
+								"e6948da9-9673-49b0-b992-f0de1f9332ef",
+								"estado"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Contraseña incorrecta",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nuevoEstado\": \"Mantenimiento\",\r\n  \"contraseñaCreador\": \"string\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}sede/e6948da9-9673-49b0-b992-f0de1f9332ef/estado",
+									"host": [
+										"{{base_url}}sede"
+									],
+									"path": [
+										"e6948da9-9673-49b0-b992-f0de1f9332ef",
+										"estado"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 21 Nov 2025 05:46:55 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": true,\n    \"msg\": \"Verifique el estado o contraseña.\"\n}"
+						},
+						{
+							"name": "Cambiar estado #1",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nuevoEstado\": \"Mantenimiento\",\r\n  \"contraseñaCreador\": \"ana123\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}sede/e6948da9-9673-49b0-b992-f0de1f9332ef/estado",
+									"host": [
+										"{{base_url}}sede"
+									],
+									"path": [
+										"e6948da9-9673-49b0-b992-f0de1f9332ef",
+										"estado"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 21 Nov 2025 05:47:36 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"msg\": \"Actualizado correctamente\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Calcular estadisticas por Sede",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}sede/b9562d90-0128-40c5-99de-9377ae5f696e/estadisticas",
+							"host": [
+								"{{base_url}}sede"
+							],
+							"path": [
+								"b9562d90-0128-40c5-99de-9377ae5f696e",
+								"estadisticas"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "No ingresado pass Sede",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base_url}}sede/e6948da9-9673-49b0-b992-f0de1f9332ef/estadisticas",
+									"host": [
+										"{{base_url}}sede"
+									],
+									"path": [
+										"e6948da9-9673-49b0-b992-f0de1f9332ef",
+										"estadisticas"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 21 Nov 2025 05:36:26 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": true,\n    \"msg\": \"No has ingresado contraseña de sede\"\n}"
+						},
+						{
+							"name": "Obtener estadisticas #1",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base_url}}sede/e6948da9-9673-49b0-b992-f0de1f9332ef/estadisticas",
+									"host": [
+										"{{base_url}}sede"
+									],
+									"path": [
+										"e6948da9-9673-49b0-b992-f0de1f9332ef",
+										"estadisticas"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 21 Nov 2025 05:42:24 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"msg\": \"Se calcularon estadisticas\",\n    \"data\": {\n        \"sedeId\": \"e6948da9-9673-49b0-b992-f0de1f9332ef\",\n        \"nombreSede\": \"Plaza Central Mall\",\n        \"totalCajones\": 11,\n        \"cajonesOcupados\": 0,\n        \"cajonesLibres\": 11,\n        \"porcentajeOcupacion\": 0,\n        \"ingresosDia\": 0,\n        \"tarifaPorHora\": 25\n    }\n}"
+						},
+						{
+							"name": "Exito #2",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base_url}}sede/b9562d90-0128-40c5-99de-9377ae5f696e/estadisticas",
+									"host": [
+										"{{base_url}}sede"
+									],
+									"path": [
+										"b9562d90-0128-40c5-99de-9377ae5f696e",
+										"estadisticas"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 25 Nov 2025 04:12:08 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"msg\": \"Se calcularon estadisticas\",\n    \"data\": {\n        \"sedeId\": \"b9562d90-0128-40c5-99de-9377ae5f696e\",\n        \"nombreSede\": \"Sanmiguelito\",\n        \"totalCajones\": 11,\n        \"cajonesOcupados\": 0,\n        \"cajonesLibres\": 11,\n        \"porcentajeOcupacion\": 0,\n        \"ingresosDia\": 0,\n        \"tarifaPorHora\": 25\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Obetener cajones",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}sede/b9562d90-0128-40c5-99de-9377ae5f696e/niveles",
+							"host": [
+								"{{base_url}}sede"
+							],
+							"path": [
+								"b9562d90-0128-40c5-99de-9377ae5f696e",
+								"niveles"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Error contraseña",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base_url}}sede/e6948da9-9673-49b0-b992-f0de1f9332ef/niveles",
+									"host": [
+										"{{base_url}}sede"
+									],
+									"path": [
+										"e6948da9-9673-49b0-b992-f0de1f9332ef",
+										"niveles"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 21 Nov 2025 06:06:25 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": true,\n    \"msg\": \"No tienes acceso a esta sede. Por favor, verifica primero la contraseña de acceso.\",\n    \"sedeId\": \"e6948da9-9673-49b0-b992-f0de1f9332ef\"\n}"
+						},
+						{
+							"name": "Exito #1",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base_url}}sede/e6948da9-9673-49b0-b992-f0de1f9332ef/niveles",
+									"host": [
+										"{{base_url}}sede"
+									],
+									"path": [
+										"e6948da9-9673-49b0-b992-f0de1f9332ef",
+										"niveles"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 21 Nov 2025 06:15:15 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"msg\": \"Niveles obtenidos exitosamente\",\n    \"data\": [\n        {\n            \"nivelId\": \"01b8a490-c530-4953-8b24-be98e1b08da5\",\n            \"numeroPiso\": 1,\n            \"capacidad\": 5,\n            \"sedeId\": \"e6948da9-9673-49b0-b992-f0de1f9332ef\",\n            \"nombreSede\": \"Plaza Central Mall\",\n            \"totalCajones\": 5,\n            \"cajonesLibres\": 5,\n            \"cajonesOcupados\": 0,\n            \"cajones\": [\n                {\n                    \"cajonId\": \"3172f3b1-940c-41f1-86df-1b065ae24a58\",\n                    \"numeroCajon\": \"N1-1\",\n                    \"tipo\": \"normal\",\n                    \"estadoActual\": \"libre\",\n                    \"nivelId\": \"01b8a490-c530-4953-8b24-be98e1b08da5\",\n                    \"numeroPiso\": 1\n                },\n                {\n                    \"cajonId\": \"4b2b1ea7-ba05-42d0-ba83-5b654043297a\",\n                    \"numeroCajon\": \"N1-5\",\n                    \"tipo\": \"normal\",\n                    \"estadoActual\": \"libre\",\n                    \"nivelId\": \"01b8a490-c530-4953-8b24-be98e1b08da5\",\n                    \"numeroPiso\": 1\n                },\n                {\n                    \"cajonId\": \"f0a0b7c3-bb85-46c7-9882-9ea6f9ebab28\",\n                    \"numeroCajon\": \"N1-3\",\n                    \"tipo\": \"normal\",\n                    \"estadoActual\": \"libre\",\n                    \"nivelId\": \"01b8a490-c530-4953-8b24-be98e1b08da5\",\n                    \"numeroPiso\": 1\n                },\n                {\n                    \"cajonId\": \"4364caf2-7dbf-42bc-8c77-b7c7a7cecf13\",\n                    \"numeroCajon\": \"N1-2\",\n                    \"tipo\": \"normal\",\n                    \"estadoActual\": \"libre\",\n                    \"nivelId\": \"01b8a490-c530-4953-8b24-be98e1b08da5\",\n                    \"numeroPiso\": 1\n                },\n                {\n                    \"cajonId\": \"9d11e640-fe8c-450b-8812-c4244240d850\",\n                    \"numeroCajon\": \"N1-4\",\n                    \"tipo\": \"normal\",\n                    \"estadoActual\": \"libre\",\n                    \"nivelId\": \"01b8a490-c530-4953-8b24-be98e1b08da5\",\n                    \"numeroPiso\": 1\n                }\n            ]\n        },\n        {\n            \"nivelId\": \"9d794a32-f3b1-482f-8ccf-3e812ef8f162\",\n            \"numeroPiso\": 2,\n            \"capacidad\": 6,\n            \"sedeId\": \"e6948da9-9673-49b0-b992-f0de1f9332ef\",\n            \"nombreSede\": \"Plaza Central Mall\",\n            \"totalCajones\": 6,\n            \"cajonesLibres\": 6,\n            \"cajonesOcupados\": 0,\n            \"cajones\": [\n                {\n                    \"cajonId\": \"7d17e03a-0d05-4ade-b4f8-3407858a5c6a\",\n                    \"numeroCajon\": \"N2-5\",\n                    \"tipo\": \"normal\",\n                    \"estadoActual\": \"libre\",\n                    \"nivelId\": \"9d794a32-f3b1-482f-8ccf-3e812ef8f162\",\n                    \"numeroPiso\": 2\n                },\n                {\n                    \"cajonId\": \"6be95edf-7968-4801-926e-633be8272116\",\n                    \"numeroCajon\": \"N2-4\",\n                    \"tipo\": \"normal\",\n                    \"estadoActual\": \"libre\",\n                    \"nivelId\": \"9d794a32-f3b1-482f-8ccf-3e812ef8f162\",\n                    \"numeroPiso\": 2\n                },\n                {\n                    \"cajonId\": \"57be9d65-c413-4e77-8fd8-6cad4f322ff6\",\n                    \"numeroCajon\": \"N2-6\",\n                    \"tipo\": \"normal\",\n                    \"estadoActual\": \"libre\",\n                    \"nivelId\": \"9d794a32-f3b1-482f-8ccf-3e812ef8f162\",\n                    \"numeroPiso\": 2\n                },\n                {\n                    \"cajonId\": \"c6f29dc1-7a46-4e8e-92de-bb11e49ecd61\",\n                    \"numeroCajon\": \"N2-2\",\n                    \"tipo\": \"normal\",\n                    \"estadoActual\": \"libre\",\n                    \"nivelId\": \"9d794a32-f3b1-482f-8ccf-3e812ef8f162\",\n                    \"numeroPiso\": 2\n                },\n                {\n                    \"cajonId\": \"ef40e015-c2cd-49a8-b038-c16d07afda53\",\n                    \"numeroCajon\": \"N2-1\",\n                    \"tipo\": \"normal\",\n                    \"estadoActual\": \"libre\",\n                    \"nivelId\": \"9d794a32-f3b1-482f-8ccf-3e812ef8f162\",\n                    \"numeroPiso\": 2\n                },\n                {\n                    \"cajonId\": \"d33493c5-c9a1-4269-9905-e5170b43fb96\",\n                    \"numeroCajon\": \"N2-3\",\n                    \"tipo\": \"normal\",\n                    \"estadoActual\": \"libre\",\n                    \"nivelId\": \"9d794a32-f3b1-482f-8ccf-3e812ef8f162\",\n                    \"numeroPiso\": 2\n                }\n            ]\n        }\n    ]\n}"
+						},
+						{
+							"name": "Exito #2",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base_url}}sede/b9562d90-0128-40c5-99de-9377ae5f696e/niveles",
+									"host": [
+										"{{base_url}}sede"
+									],
+									"path": [
+										"b9562d90-0128-40c5-99de-9377ae5f696e",
+										"niveles"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 25 Nov 2025 04:12:35 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"msg\": \"Niveles obtenidos exitosamente\",\n    \"data\": [\n        {\n            \"nivelId\": \"06919bf0-19d3-45bd-a540-22d2247bd927\",\n            \"numeroPiso\": 1,\n            \"capacidad\": 5,\n            \"sedeId\": \"b9562d90-0128-40c5-99de-9377ae5f696e\",\n            \"nombreSede\": \"Sanmiguelito\",\n            \"totalCajones\": 5,\n            \"cajonesLibres\": 5,\n            \"cajonesOcupados\": 0,\n            \"cajones\": [\n                {\n                    \"cajonId\": \"50730536-4149-4eb5-83f7-0394883d54a2\",\n                    \"numeroCajon\": \"N1-1\",\n                    \"tipo\": \"normal\",\n                    \"estadoActual\": \"libre\",\n                    \"nivelId\": \"06919bf0-19d3-45bd-a540-22d2247bd927\",\n                    \"numeroPiso\": 1\n                },\n                {\n                    \"cajonId\": \"d80a93c3-ef8e-426c-8e39-0572c978ce33\",\n                    \"numeroCajon\": \"N1-3\",\n                    \"tipo\": \"normal\",\n                    \"estadoActual\": \"libre\",\n                    \"nivelId\": \"06919bf0-19d3-45bd-a540-22d2247bd927\",\n                    \"numeroPiso\": 1\n                },\n                {\n                    \"cajonId\": \"32fd6f68-90ac-40f2-a3b7-223b1d876759\",\n                    \"numeroCajon\": \"N1-2\",\n                    \"tipo\": \"normal\",\n                    \"estadoActual\": \"libre\",\n                    \"nivelId\": \"06919bf0-19d3-45bd-a540-22d2247bd927\",\n                    \"numeroPiso\": 1\n                },\n                {\n                    \"cajonId\": \"d86e6fe3-9f53-4d2d-94d7-a372313baee8\",\n                    \"numeroCajon\": \"N1-5\",\n                    \"tipo\": \"normal\",\n                    \"estadoActual\": \"libre\",\n                    \"nivelId\": \"06919bf0-19d3-45bd-a540-22d2247bd927\",\n                    \"numeroPiso\": 1\n                },\n                {\n                    \"cajonId\": \"f6a7e9b5-2d8c-47f4-a8af-f3c319449756\",\n                    \"numeroCajon\": \"N1-4\",\n                    \"tipo\": \"normal\",\n                    \"estadoActual\": \"libre\",\n                    \"nivelId\": \"06919bf0-19d3-45bd-a540-22d2247bd927\",\n                    \"numeroPiso\": 1\n                }\n            ]\n        },\n        {\n            \"nivelId\": \"0fe9ab92-477c-40a4-a250-14777ee8e705\",\n            \"numeroPiso\": 2,\n            \"capacidad\": 6,\n            \"sedeId\": \"b9562d90-0128-40c5-99de-9377ae5f696e\",\n            \"nombreSede\": \"Sanmiguelito\",\n            \"totalCajones\": 6,\n            \"cajonesLibres\": 6,\n            \"cajonesOcupados\": 0,\n            \"cajones\": [\n                {\n                    \"cajonId\": \"c9dfc113-9513-417d-b271-2743c600a82e\",\n                    \"numeroCajon\": \"N2-5\",\n                    \"tipo\": \"normal\",\n                    \"estadoActual\": \"libre\",\n                    \"nivelId\": \"0fe9ab92-477c-40a4-a250-14777ee8e705\",\n                    \"numeroPiso\": 2\n                },\n                {\n                    \"cajonId\": \"843043ef-06a1-4c10-ae0a-423e5b0fb862\",\n                    \"numeroCajon\": \"N2-2\",\n                    \"tipo\": \"normal\",\n                    \"estadoActual\": \"libre\",\n                    \"nivelId\": \"0fe9ab92-477c-40a4-a250-14777ee8e705\",\n                    \"numeroPiso\": 2\n                },\n                {\n                    \"cajonId\": \"9fd48492-2576-4455-b0eb-5c2a1875a963\",\n                    \"numeroCajon\": \"N2-3\",\n                    \"tipo\": \"normal\",\n                    \"estadoActual\": \"libre\",\n                    \"nivelId\": \"0fe9ab92-477c-40a4-a250-14777ee8e705\",\n                    \"numeroPiso\": 2\n                },\n                {\n                    \"cajonId\": \"86cf970a-21e0-45d6-ac9c-81d3c7ac1f77\",\n                    \"numeroCajon\": \"N2-4\",\n                    \"tipo\": \"normal\",\n                    \"estadoActual\": \"libre\",\n                    \"nivelId\": \"0fe9ab92-477c-40a4-a250-14777ee8e705\",\n                    \"numeroPiso\": 2\n                },\n                {\n                    \"cajonId\": \"baf98084-38a8-4d71-98d2-9b63209c7525\",\n                    \"numeroCajon\": \"N2-6\",\n                    \"tipo\": \"normal\",\n                    \"estadoActual\": \"libre\",\n                    \"nivelId\": \"0fe9ab92-477c-40a4-a250-14777ee8e705\",\n                    \"numeroPiso\": 2\n                },\n                {\n                    \"cajonId\": \"7d2c0f6b-ced4-4865-ab1f-f896a0e8e299\",\n                    \"numeroCajon\": \"N2-1\",\n                    \"tipo\": \"normal\",\n                    \"estadoActual\": \"libre\",\n                    \"nivelId\": \"0fe9ab92-477c-40a4-a250-14777ee8e705\",\n                    \"numeroPiso\": 2\n                }\n            ]\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Actualizar datos sede",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"contraseñaCreador\": \"ana123\",\r\n  \"direccion\": \"Porola, SMA, gto\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}Sede/7426b909-78b9-4e93-98cb-c35b1d13b77b/actualizar-completa",
+							"host": [
+								"{{base_url}}Sede"
+							],
+							"path": [
+								"7426b909-78b9-4e93-98cb-c35b1d13b77b",
+								"actualizar-completa"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Exito #1",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"contraseñaCreador\": \"ana123\",\r\n  \"direccion\": \"Porola, SMA, gto\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}Sede/7426b909-78b9-4e93-98cb-c35b1d13b77b/actualizar-completa",
+									"host": [
+										"{{base_url}}Sede"
+									],
+									"path": [
+										"7426b909-78b9-4e93-98cb-c35b1d13b77b",
+										"actualizar-completa"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 23 Nov 2025 06:11:57 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"msg\": \"Sede actualizada exitosamente\",\n    \"data\": {\n        \"sedeId\": \"7426b909-78b9-4e93-98cb-c35b1d13b77b\",\n        \"nombre\": \"ejemplo\",\n        \"direccion\": \"Porola, SMA, gto\",\n        \"estado\": \"activo\",\n        \"tarifaPorHora\": 25,\n        \"multaPorHora\": 30,\n        \"multaConTope\": true,\n        \"montoMaximoMulta\": 100,\n        \"fechaCreacion\": \"2025-11-23T05:09:26.0227774\",\n        \"creadoPorUsuarioId\": \"8d9051cc-c755-4968-84e3-c1b7079312ce\",\n        \"nombreCreador\": \"Pedro\",\n        \"totalNiveles\": 2,\n        \"totalCajones\": 11,\n        \"cajonesLibres\": 8,\n        \"cajonesOcupados\": 2\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Asignacion EndPoints",
+			"item": [
+				{
+					"name": "Asignar cajón especifico",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"sedeId\": \"b9562d90-0128-40c5-99de-9377ae5f696e\",\r\n  \"cajonId\": \"50730536-4149-4eb5-83f7-0394883d54a2\",\r\n  \"placaVehiculo\": \"ABC-987\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}Asignacion/cajon-especifico",
+							"host": [
+								"{{base_url}}Asignacion"
+							],
+							"path": [
+								"cajon-especifico"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Exito #1",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"sedeId\": \"e6948da9-9673-49b0-b992-f0de1f9332ef\",\r\n  \"cajonId\": \"3172f3b1-940c-41f1-86df-1b065ae24a58\",\r\n  \"placaVehiculo\": \"ABC-987\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}Asignacion/cajon-especifico",
+									"host": [
+										"{{base_url}}Asignacion"
+									],
+									"path": [
+										"cajon-especifico"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 22 Nov 2025 20:26:34 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"msg\": \"Cajón asignado exitosamente\",\n    \"data\": {\n        \"ticketId\": \"f54059f4-5ebe-4a57-ec11-08de2a056e58\",\n        \"cajonId\": \"3172f3b1-940c-41f1-86df-1b065ae24a58\",\n        \"numeroCajon\": \"N1-1\",\n        \"tipoCajon\": \"normal\",\n        \"numeroPiso\": 1,\n        \"placaVehiculo\": \"ABC-987\",\n        \"horaEntrada\": \"2025-11-22T20:26:34.7591368Z\"\n    }\n}"
+						},
+						{
+							"name": "Exito #2",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"sedeId\": \"b9562d90-0128-40c5-99de-9377ae5f696e\",\r\n  \"cajonId\": \"50730536-4149-4eb5-83f7-0394883d54a2\",\r\n  \"placaVehiculo\": \"ABC-987\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}Asignacion/cajon-especifico",
+									"host": [
+										"{{base_url}}Asignacion"
+									],
+									"path": [
+										"cajon-especifico"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 25 Nov 2025 04:14:53 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"msg\": \"Cajón asignado exitosamente\",\n    \"data\": {\n        \"ticketId\": \"f4f0bc50-656c-4335-fc2e-08de2bd92fb6\",\n        \"cajonId\": \"50730536-4149-4eb5-83f7-0394883d54a2\",\n        \"numeroCajon\": \"N1-1\",\n        \"tipoCajon\": \"normal\",\n        \"numeroPiso\": 1,\n        \"placaVehiculo\": \"ABC-987\",\n        \"horaEntrada\": \"2025-11-25T04:14:54.1588067Z\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Asignación automatico",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"sedeId\": \"b9562d90-0128-40c5-99de-9377ae5f696e\",\r\n  \"numeroPiso\": 1,\r\n  \"placaVehiculo\": \"ABC-985\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}Asignacion/cajon-automatico",
+							"host": [
+								"{{base_url}}Asignacion"
+							],
+							"path": [
+								"cajon-automatico"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Exito #1",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"sedeId\": \"e6948da9-9673-49b0-b992-f0de1f9332ef\",\r\n  \"numeroPiso\": 1,\r\n  \"placaVehiculo\": \"ABC-963\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}Asignacion/cajon-automatico",
+									"host": [
+										"{{base_url}}Asignacion"
+									],
+									"path": [
+										"cajon-automatico"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 22 Nov 2025 20:28:18 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"msg\": \"Cajón asignado automáticamente\",\n    \"data\": {\n        \"ticketId\": \"8b242648-5df8-404b-ec12-08de2a056e58\",\n        \"cajonId\": \"4b2b1ea7-ba05-42d0-ba83-5b654043297a\",\n        \"numeroCajon\": \"N1-5\",\n        \"tipoCajon\": \"normal\",\n        \"numeroPiso\": 1,\n        \"placaVehiculo\": \"ABC-963\",\n        \"horaEntrada\": \"2025-11-22T20:28:19.2622803Z\"\n    }\n}"
+						},
+						{
+							"name": "Exito #2",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"sedeId\": \"b9562d90-0128-40c5-99de-9377ae5f696e\",\r\n  \"numeroPiso\": 1,\r\n  \"placaVehiculo\": \"ABC-963\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}Asignacion/cajon-automatico",
+									"host": [
+										"{{base_url}}Asignacion"
+									],
+									"path": [
+										"cajon-automatico"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 25 Nov 2025 04:15:24 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"msg\": \"Cajón asignado automáticamente\",\n    \"data\": {\n        \"ticketId\": \"5b01d3bd-9b78-4b88-fc2f-08de2bd92fb6\",\n        \"cajonId\": \"d80a93c3-ef8e-426c-8e39-0572c978ce33\",\n        \"numeroCajon\": \"N1-3\",\n        \"tipoCajon\": \"normal\",\n        \"numeroPiso\": 1,\n        \"placaVehiculo\": \"ABC-963\",\n        \"horaEntrada\": \"2025-11-25T04:15:25.0089127Z\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Nueva reserva",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"sedeId\": \"b9562d90-0128-40c5-99de-9377ae5f696e\",\r\n  \"cajonId\": \"32fd6f68-90ac-40f2-a3b7-223b1d876759\",\r\n  \"placaVehiculo\": \"ABC-784\",\r\n  \"duracionHoras\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}Asignacion/reserva",
+							"host": [
+								"{{base_url}}Asignacion"
+							],
+							"path": [
+								"reserva"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Exito #1",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"sedeId\": \"e6948da9-9673-49b0-b992-f0de1f9332ef\",\r\n  \"cajonId\": \"f0a0b7c3-bb85-46c7-9882-9ea6f9ebab28\",\r\n  \"placaVehiculo\": \"ABC-985\",\r\n  \"duracionHoras\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}Asignacion/reserva",
+									"host": [
+										"{{base_url}}Asignacion"
+									],
+									"path": [
+										"reserva"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 22 Nov 2025 20:31:49 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"msg\": \"Reserva creada exitosamente. La fecha de inicio fue establecida automáticamente.\",\n    \"data\": {\n        \"reservaId\": \"22848812-f47b-49ef-0111-08de2a0629af\",\n        \"placaVehiculo\": \"ABC-985\",\n        \"fechaReserva\": \"2025-11-22T20:31:49.0230399Z\",\n        \"duracionEstimadaHoras\": 1,\n        \"estado\": \"pendiente\",\n        \"cajonId\": \"f0a0b7c3-bb85-46c7-9882-9ea6f9ebab28\",\n        \"numeroCajon\": \"N1-3\",\n        \"tipoCajon\": \"normal\",\n        \"numeroPiso\": 1,\n        \"creadoPorUsuarioId\": \"0d303bb3-e2db-42c8-b9d3-366ece12a215\",\n        \"nombreCreador\": \"Ana Pérez\",\n        \"fechaVencimiento\": \"2025-11-22T21:31:49.0230399Z\"\n    }\n}"
+						},
+						{
+							"name": "Exito #2",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"sedeId\": \"7426b909-78b9-4e93-98cb-c35b1d13b77b\",\r\n  \"cajonId\": \"d7edf27c-4963-44e2-96d7-cb88394e62f1\",\r\n  \"placaVehiculo\": \"ABC-984\",\r\n  \"duracionHoras\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}Asignacion/reserva",
+									"host": [
+										"{{base_url}}Asignacion"
+									],
+									"path": [
+										"reserva"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 23 Nov 2025 06:30:49 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"msg\": \"Reserva creada exitosamente. La fecha de inicio fue establecida automáticamente.\",\n    \"data\": {\n        \"reservaId\": \"7a807309-a6ac-4bbd-1df0-08de2a59d834\",\n        \"placaVehiculo\": \"ABC-984\",\n        \"fechaReserva\": \"2025-11-23T06:30:50.0261684Z\",\n        \"duracionEstimadaHoras\": 1,\n        \"estado\": \"pendiente\",\n        \"cajonId\": \"d7edf27c-4963-44e2-96d7-cb88394e62f1\",\n        \"numeroCajon\": \"N1-3\",\n        \"tipoCajon\": \"normal\",\n        \"numeroPiso\": 1,\n        \"creadoPorUsuarioId\": \"8d9051cc-c755-4968-84e3-c1b7079312ce\",\n        \"nombreCreador\": \"Pedro\",\n        \"fechaVencimiento\": \"2025-11-23T07:30:50.0261684Z\"\n    }\n}"
+						},
+						{
+							"name": "Exito #3",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"sedeId\": \"b9562d90-0128-40c5-99de-9377ae5f696e\",\r\n  \"cajonId\": \"32fd6f68-90ac-40f2-a3b7-223b1d876759\",\r\n  \"placaVehiculo\": \"ABC-984\",\r\n  \"duracionHoras\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}Asignacion/reserva",
+									"host": [
+										"{{base_url}}Asignacion"
+									],
+									"path": [
+										"reserva"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 25 Nov 2025 04:16:54 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"msg\": \"Reserva creada exitosamente. La fecha de inicio fue establecida automáticamente.\",\n    \"data\": {\n        \"reservaId\": \"1b01e1e6-ae80-4204-629a-08de2bd97792\",\n        \"placaVehiculo\": \"ABC-984\",\n        \"fechaReserva\": \"2025-11-25T04:16:54.6567954Z\",\n        \"duracionEstimadaHoras\": 1,\n        \"estado\": \"pendiente\",\n        \"cajonId\": \"32fd6f68-90ac-40f2-a3b7-223b1d876759\",\n        \"numeroCajon\": \"N1-2\",\n        \"tipoCajon\": \"normal\",\n        \"numeroPiso\": 1,\n        \"creadoPorUsuarioId\": \"f53a27af-bc21-4c67-9736-cdec6580811f\",\n        \"nombreCreador\": \"Pip\",\n        \"fechaVencimiento\": \"2025-11-25T05:16:54.6567954Z\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Obtener reserva por sede",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}Asignacion/reservas/sede/b9562d90-0128-40c5-99de-9377ae5f696e",
+							"host": [
+								"{{base_url}}Asignacion"
+							],
+							"path": [
+								"reservas",
+								"sede",
+								"b9562d90-0128-40c5-99de-9377ae5f696e"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Exito #1",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base_url}}Asignacion/reservas/sede/e6948da9-9673-49b0-b992-f0de1f9332ef",
+									"host": [
+										"{{base_url}}Asignacion"
+									],
+									"path": [
+										"reservas",
+										"sede",
+										"e6948da9-9673-49b0-b992-f0de1f9332ef"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 22 Nov 2025 20:35:12 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"msg\": \"Reservas obtenidas exitosamente\",\n    \"data\": [\n        {\n            \"reservaId\": \"22848812-f47b-49ef-0111-08de2a0629af\",\n            \"placaVehiculo\": \"ABC-985\",\n            \"fechaReserva\": \"2025-11-22T20:31:49.0230399\",\n            \"duracionEstimadaHoras\": 1,\n            \"estado\": \"pendiente\",\n            \"cajonId\": \"f0a0b7c3-bb85-46c7-9882-9ea6f9ebab28\",\n            \"numeroCajon\": \"N1-3\",\n            \"tipoCajon\": \"normal\",\n            \"numeroPiso\": 1,\n            \"creadoPorUsuarioId\": \"0d303bb3-e2db-42c8-b9d3-366ece12a215\",\n            \"nombreCreador\": \"Ana Pérez\",\n            \"fechaVencimiento\": \"2025-11-22T21:31:49.0230399\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "Exito #2",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}Asignacion/reservas/sede/b9562d90-0128-40c5-99de-9377ae5f696e",
+									"host": [
+										"{{base_url}}Asignacion"
+									],
+									"path": [
+										"reservas",
+										"sede",
+										"b9562d90-0128-40c5-99de-9377ae5f696e"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 25 Nov 2025 04:17:18 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"msg\": \"Reservas obtenidas exitosamente\",\n    \"data\": [\n        {\n            \"reservaId\": \"1b01e1e6-ae80-4204-629a-08de2bd97792\",\n            \"placaVehiculo\": \"ABC-984\",\n            \"fechaReserva\": \"2025-11-25T04:16:54.6567954\",\n            \"duracionEstimadaHoras\": 1,\n            \"estado\": \"pendiente\",\n            \"cajonId\": \"32fd6f68-90ac-40f2-a3b7-223b1d876759\",\n            \"numeroCajon\": \"N1-2\",\n            \"tipoCajon\": \"normal\",\n            \"numeroPiso\": 1,\n            \"creadoPorUsuarioId\": \"f53a27af-bc21-4c67-9736-cdec6580811f\",\n            \"nombreCreador\": \"Pip\",\n            \"fechaVencimiento\": \"2025-11-25T05:16:54.6567954\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Obtener reserva por cajon",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}Asignacion/reserva/1b01e1e6-ae80-4204-629a-08de2bd97792",
+							"host": [
+								"{{base_url}}Asignacion"
+							],
+							"path": [
+								"reserva",
+								"1b01e1e6-ae80-4204-629a-08de2bd97792"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Exito #1",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}Asignacion/reserva/22848812-f47b-49ef-0111-08de2a0629af",
+									"host": [
+										"{{base_url}}Asignacion"
+									],
+									"path": [
+										"reserva",
+										"22848812-f47b-49ef-0111-08de2a0629af"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 22 Nov 2025 20:40:50 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"msg\": \"Reserva obtenida exitosamente\",\n    \"data\": {\n        \"reservaId\": \"22848812-f47b-49ef-0111-08de2a0629af\",\n        \"placaVehiculo\": \"ABC-985\",\n        \"fechaReserva\": \"2025-11-22T20:31:49.0230399\",\n        \"duracionEstimadaHoras\": 1,\n        \"estado\": \"pendiente\",\n        \"cajonId\": \"f0a0b7c3-bb85-46c7-9882-9ea6f9ebab28\",\n        \"numeroCajon\": \"N1-3\",\n        \"tipoCajon\": \"normal\",\n        \"numeroPiso\": 1,\n        \"creadoPorUsuarioId\": \"0d303bb3-e2db-42c8-b9d3-366ece12a215\",\n        \"nombreCreador\": \"Ana Pérez\",\n        \"fechaVencimiento\": \"2025-11-22T21:31:49.0230399\"\n    }\n}"
+						},
+						{
+							"name": "Exito #2",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}Asignacion/reserva/1b01e1e6-ae80-4204-629a-08de2bd97792",
+									"host": [
+										"{{base_url}}Asignacion"
+									],
+									"path": [
+										"reserva",
+										"1b01e1e6-ae80-4204-629a-08de2bd97792"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 25 Nov 2025 04:17:59 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"msg\": \"Reserva obtenida exitosamente\",\n    \"data\": {\n        \"reservaId\": \"1b01e1e6-ae80-4204-629a-08de2bd97792\",\n        \"placaVehiculo\": \"ABC-984\",\n        \"fechaReserva\": \"2025-11-25T04:16:54.6567954\",\n        \"duracionEstimadaHoras\": 1,\n        \"estado\": \"pendiente\",\n        \"cajonId\": \"32fd6f68-90ac-40f2-a3b7-223b1d876759\",\n        \"numeroCajon\": \"N1-2\",\n        \"tipoCajon\": \"normal\",\n        \"numeroPiso\": 1,\n        \"creadoPorUsuarioId\": \"f53a27af-bc21-4c67-9736-cdec6580811f\",\n        \"nombreCreador\": \"Pip\",\n        \"fechaVencimiento\": \"2025-11-25T05:16:54.6567954\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Obtener costo total reservado",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}Asignacion/reserva/432117ae-34cb-4fae-18af-08de3519ee07/calcular-pago",
+							"host": [
+								"{{base_url}}Asignacion"
+							],
+							"path": [
+								"reserva",
+								"432117ae-34cb-4fae-18af-08de3519ee07",
+								"calcular-pago"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Exito #1",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}Asignacion/reserva/22848812-f47b-49ef-0111-08de2a0629af/calcular-pago",
+									"host": [
+										"{{base_url}}Asignacion"
+									],
+									"path": [
+										"reserva",
+										"22848812-f47b-49ef-0111-08de2a0629af",
+										"calcular-pago"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 22 Nov 2025 21:47:35 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"msg\": \"Cálculo realizado. ATENCIÓN: Se aplicó multa de $30.00 por 1 hora(s) de exceso.\",\n    \"data\": {\n        \"reservaId\": \"22848812-f47b-49ef-0111-08de2a0629af\",\n        \"placaVehiculo\": \"ABC-985\",\n        \"fechaReserva\": \"2025-11-22T20:31:49.0230399\",\n        \"fechaVencimiento\": \"2025-11-22T21:31:49.0230399\",\n        \"fechaPago\": \"2025-11-22T21:47:35.6435866Z\",\n        \"duracionReservadaHoras\": 1,\n        \"horasExcedidas\": 1,\n        \"tarifaPorHora\": 25,\n        \"montoTarifa\": 25,\n        \"multaPorHora\": 30,\n        \"montoMulta\": 30,\n        \"montoTotal\": 55,\n        \"tieneMulta\": true,\n        \"multaConTope\": true,\n        \"montoMaximoMulta\": 100\n    }\n}"
+						},
+						{
+							"name": "Exito #2",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}Asignacion/reserva/1b01e1e6-ae80-4204-629a-08de2bd97792/calcular-pago",
+									"host": [
+										"{{base_url}}Asignacion"
+									],
+									"path": [
+										"reserva",
+										"1b01e1e6-ae80-4204-629a-08de2bd97792",
+										"calcular-pago"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 25 Nov 2025 04:18:28 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"msg\": \"Cálculo realizado sin multas\",\n    \"data\": {\n        \"reservaId\": \"1b01e1e6-ae80-4204-629a-08de2bd97792\",\n        \"placaVehiculo\": \"ABC-984\",\n        \"fechaReserva\": \"2025-11-25T04:16:54.6567954\",\n        \"fechaVencimiento\": \"2025-11-25T05:16:54.6567954\",\n        \"duracionReservadaHoras\": 1,\n        \"horasExcedidas\": 0,\n        \"tarifaPorHora\": 25,\n        \"montoTarifa\": 25,\n        \"multaPorHora\": 30,\n        \"montoMulta\": 0,\n        \"montoTotal\": 25,\n        \"tieneMulta\": false,\n        \"multaConTope\": true,\n        \"montoMaximoMulta\": 100\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Obtener costo total de ticket",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}Asignacion/ticket/5b01d3bd-9b78-4b88-fc2f-08de2bd92fb6/calcular-pago",
+							"host": [
+								"{{base_url}}Asignacion"
+							],
+							"path": [
+								"ticket",
+								"5b01d3bd-9b78-4b88-fc2f-08de2bd92fb6",
+								"calcular-pago"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Exito #1",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}Asignacion/reserva/22848812-f47b-49ef-0111-08de2a0629af/calcular-pago",
+									"host": [
+										"{{base_url}}Asignacion"
+									],
+									"path": [
+										"reserva",
+										"22848812-f47b-49ef-0111-08de2a0629af",
+										"calcular-pago"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 22 Nov 2025 21:50:54 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"msg\": \"Cálculo realizado. ATENCIÓN: Se aplicó multa de $30.00 por 1 hora(s) de exceso.\",\n    \"data\": {\n        \"reservaId\": \"22848812-f47b-49ef-0111-08de2a0629af\",\n        \"placaVehiculo\": \"ABC-985\",\n        \"fechaReserva\": \"2025-11-22T20:31:49.0230399\",\n        \"fechaVencimiento\": \"2025-11-22T21:31:49.0230399\",\n        \"fechaPago\": \"2025-11-22T21:50:54.4846896Z\",\n        \"duracionReservadaHoras\": 1,\n        \"horasExcedidas\": 1,\n        \"tarifaPorHora\": 25,\n        \"montoTarifa\": 25,\n        \"multaPorHora\": 30,\n        \"montoMulta\": 30,\n        \"montoTotal\": 55,\n        \"tieneMulta\": true,\n        \"multaConTope\": true,\n        \"montoMaximoMulta\": 100\n    }\n}"
+						},
+						{
+							"name": "Exito #2",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}Asignacion/ticket/5b01d3bd-9b78-4b88-fc2f-08de2bd92fb6/calcular-pago",
+									"host": [
+										"{{base_url}}Asignacion"
+									],
+									"path": [
+										"ticket",
+										"5b01d3bd-9b78-4b88-fc2f-08de2bd92fb6",
+										"calcular-pago"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 25 Nov 2025 04:19:11 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"msg\": \"Tiempo estacionado: 1 hora(s). Monto a pagar: $25.00\",\n    \"data\": {\n        \"ticketId\": \"5b01d3bd-9b78-4b88-fc2f-08de2bd92fb6\",\n        \"placaVehiculo\": \"ABC-963\",\n        \"horaEntrada\": \"2025-11-25T04:15:25.0089127\",\n        \"horaSalida\": \"2025-11-25T04:19:12.3625055Z\",\n        \"minutosTranscurridos\": 4,\n        \"horasCobradas\": 1,\n        \"tarifaPorHora\": 25,\n        \"montoTotal\": 25,\n        \"numeroCajon\": \"N1-3\",\n        \"numeroPiso\": 1\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Pagar reserva",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}Asignacion/reserva/1b01e1e6-ae80-4204-629a-08de2bd97792/pagar",
+							"host": [
+								"{{base_url}}Asignacion"
+							],
+							"path": [
+								"reserva",
+								"1b01e1e6-ae80-4204-629a-08de2bd97792",
+								"pagar"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Exito #1",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}Asignacion/reserva/22848812-f47b-49ef-0111-08de2a0629af/pagar",
+									"host": [
+										"{{base_url}}Asignacion"
+									],
+									"path": [
+										"reserva",
+										"22848812-f47b-49ef-0111-08de2a0629af",
+										"pagar"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 22 Nov 2025 21:58:32 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"msg\": \"Pago procesado exitosamente. El cajón ha sido liberado.\",\n    \"montoPagado\": 55,\n    \"detalles\": {\n        \"reservaId\": \"22848812-f47b-49ef-0111-08de2a0629af\",\n        \"placaVehiculo\": \"ABC-985\",\n        \"fechaReserva\": \"2025-11-22T20:31:49.0230399\",\n        \"fechaVencimiento\": \"2025-11-22T21:31:49.0230399\",\n        \"fechaPago\": \"2025-11-22T21:58:33.3731434Z\",\n        \"duracionReservadaHoras\": 1,\n        \"horasExcedidas\": 1,\n        \"tarifaPorHora\": 25,\n        \"montoTarifa\": 25,\n        \"multaPorHora\": 30,\n        \"montoMulta\": 30,\n        \"montoTotal\": 55,\n        \"tieneMulta\": true,\n        \"multaConTope\": true,\n        \"montoMaximoMulta\": 100\n    }\n}"
+						},
+						{
+							"name": "Exito #2",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}Asignacion/reserva/1b01e1e6-ae80-4204-629a-08de2bd97792/pagar",
+									"host": [
+										"{{base_url}}Asignacion"
+									],
+									"path": [
+										"reserva",
+										"1b01e1e6-ae80-4204-629a-08de2bd97792",
+										"pagar"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 25 Nov 2025 04:20:57 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"msg\": \"Pago procesado exitosamente. El cajón ha sido liberado.\",\n    \"montoPagado\": 25,\n    \"detalles\": {\n        \"reservaId\": \"1b01e1e6-ae80-4204-629a-08de2bd97792\",\n        \"placaVehiculo\": \"ABC-984\",\n        \"fechaReserva\": \"2025-11-25T04:16:54.6567954\",\n        \"fechaVencimiento\": \"2025-11-25T05:16:54.6567954\",\n        \"duracionReservadaHoras\": 1,\n        \"horasExcedidas\": 0,\n        \"tarifaPorHora\": 25,\n        \"montoTarifa\": 25,\n        \"multaPorHora\": 30,\n        \"montoMulta\": 0,\n        \"montoTotal\": 25,\n        \"tieneMulta\": false,\n        \"multaConTope\": true,\n        \"montoMaximoMulta\": 100\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Pagar ticket",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}Asignacion/ticket/5b01d3bd-9b78-4b88-fc2f-08de2bd92fb6/pagar",
+							"host": [
+								"{{base_url}}Asignacion"
+							],
+							"path": [
+								"ticket",
+								"5b01d3bd-9b78-4b88-fc2f-08de2bd92fb6",
+								"pagar"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Exito #1",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}Asignacion/ticket/f54059f4-5ebe-4a57-ec11-08de2a056e58/pagar",
+									"host": [
+										"{{base_url}}Asignacion"
+									],
+									"path": [
+										"ticket",
+										"f54059f4-5ebe-4a57-ec11-08de2a056e58",
+										"pagar"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 22 Nov 2025 22:00:21 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"msg\": \"Pago procesado exitosamente. El cajón ha sido liberado.\",\n    \"montoPagado\": 50,\n    \"detalles\": {\n        \"ticketId\": \"f54059f4-5ebe-4a57-ec11-08de2a056e58\",\n        \"placaVehiculo\": \"ABC-987\",\n        \"horaEntrada\": \"2025-11-22T20:26:34.7591368\",\n        \"horaSalida\": \"2025-11-22T22:00:21.978544Z\",\n        \"minutosTranscurridos\": 94,\n        \"horasCobradas\": 2,\n        \"tarifaPorHora\": 25,\n        \"montoTotal\": 50,\n        \"numeroCajon\": \"N1-1\",\n        \"numeroPiso\": 1\n    }\n}"
+						},
+						{
+							"name": "Exito #2",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}Asignacion/ticket/5b01d3bd-9b78-4b88-fc2f-08de2bd92fb6/pagar",
+									"host": [
+										"{{base_url}}Asignacion"
+									],
+									"path": [
+										"ticket",
+										"5b01d3bd-9b78-4b88-fc2f-08de2bd92fb6",
+										"pagar"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 25 Nov 2025 04:22:26 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"msg\": \"Pago procesado exitosamente. El cajón ha sido liberado.\",\n    \"montoPagado\": 25,\n    \"detalles\": {\n        \"ticketId\": \"5b01d3bd-9b78-4b88-fc2f-08de2bd92fb6\",\n        \"placaVehiculo\": \"ABC-963\",\n        \"horaEntrada\": \"2025-11-25T04:15:25.0089127\",\n        \"horaSalida\": \"2025-11-25T04:22:26.275369Z\",\n        \"minutosTranscurridos\": 8,\n        \"horasCobradas\": 1,\n        \"tarifaPorHora\": 25,\n        \"montoTotal\": 25,\n        \"numeroCajon\": \"N1-3\",\n        \"numeroPiso\": 1\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Obtener historial por sede",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}Asignacion/historial/sede/b9562d90-0128-40c5-99de-9377ae5f696e",
+							"host": [
+								"{{base_url}}Asignacion"
+							],
+							"path": [
+								"historial",
+								"sede",
+								"b9562d90-0128-40c5-99de-9377ae5f696e"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Exito #1",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}Asignacion/tickets/sede/e6948da9-9673-49b0-b992-f0de1f9332ef",
+									"host": [
+										"{{base_url}}Asignacion"
+									],
+									"path": [
+										"tickets",
+										"sede",
+										"e6948da9-9673-49b0-b992-f0de1f9332ef"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 22 Nov 2025 22:06:23 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"msg\": \"Tickets obtenidos exitosamente\",\n    \"total\": 2,\n    \"data\": [\n        {\n            \"ticketId\": \"8b242648-5df8-404b-ec12-08de2a056e58\",\n            \"placaVehiculo\": \"ABC-963\",\n            \"horaEntrada\": \"2025-11-22T20:28:19.2622803\",\n            \"horaSalida\": null,\n            \"montoTotal\": null,\n            \"estado\": \"activo\",\n            \"cajonId\": \"4b2b1ea7-ba05-42d0-ba83-5b654043297a\",\n            \"numeroCajon\": \"N1-5\"\n        },\n        {\n            \"ticketId\": \"f54059f4-5ebe-4a57-ec11-08de2a056e58\",\n            \"placaVehiculo\": \"ABC-987\",\n            \"horaEntrada\": \"2025-11-22T20:26:34.7591368\",\n            \"horaSalida\": \"2025-11-22T22:00:22.0021461\",\n            \"montoTotal\": 50,\n            \"estado\": \"completado\",\n            \"cajonId\": \"3172f3b1-940c-41f1-86df-1b065ae24a58\",\n            \"numeroCajon\": \"N1-1\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "Exito #2",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}Asignacion/historial/sede/b9562d90-0128-40c5-99de-9377ae5f696e",
+									"host": [
+										"{{base_url}}Asignacion"
+									],
+									"path": [
+										"historial",
+										"sede",
+										"b9562d90-0128-40c5-99de-9377ae5f696e"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 25 Nov 2025 04:23:07 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"msg\": \"Historial completo obtenido exitosamente\",\n    \"totalRegistros\": 3,\n    \"totalTickets\": 2,\n    \"totalReservas\": 1,\n    \"data\": [\n        {\n            \"transaccionId\": \"1b01e1e6-ae80-4204-629a-08de2bd97792\",\n            \"tipo\": \"reserva\",\n            \"placaVehiculo\": \"ABC-984\",\n            \"fechaInicio\": \"2025-11-25T04:16:54.6567954\",\n            \"fechaFin\": \"2025-11-25T05:16:54.6567954\",\n            \"duracionHoras\": 1,\n            \"montoTotal\": 25,\n            \"estado\": \"completado\",\n            \"cajonId\": \"32fd6f68-90ac-40f2-a3b7-223b1d876759\",\n            \"numeroCajon\": \"N1-2\",\n            \"tipoCajon\": \"normal\",\n            \"numeroPiso\": 1,\n            \"nombreCreador\": \"Pip\"\n        },\n        {\n            \"transaccionId\": \"5b01d3bd-9b78-4b88-fc2f-08de2bd92fb6\",\n            \"tipo\": \"ticket\",\n            \"placaVehiculo\": \"ABC-963\",\n            \"fechaInicio\": \"2025-11-25T04:15:25.0089127\",\n            \"fechaFin\": \"2025-11-25T04:22:26.295092\",\n            \"duracionHoras\": 1,\n            \"montoTotal\": 25,\n            \"estado\": \"pagado\",\n            \"cajonId\": \"d80a93c3-ef8e-426c-8e39-0572c978ce33\",\n            \"numeroCajon\": \"N1-3\",\n            \"tipoCajon\": \"normal\",\n            \"numeroPiso\": 1,\n            \"nombreCreador\": null\n        },\n        {\n            \"transaccionId\": \"f4f0bc50-656c-4335-fc2e-08de2bd92fb6\",\n            \"tipo\": \"ticket\",\n            \"placaVehiculo\": \"ABC-987\",\n            \"fechaInicio\": \"2025-11-25T04:14:54.1588067\",\n            \"fechaFin\": null,\n            \"duracionHoras\": 0,\n            \"montoTotal\": null,\n            \"estado\": \"activo\",\n            \"cajonId\": \"50730536-4149-4eb5-83f7-0394883d54a2\",\n            \"numeroCajon\": \"N1-1\",\n            \"tipoCajon\": \"normal\",\n            \"numeroPiso\": 1,\n            \"nombreCreador\": null\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Cambiar tipo de cajon",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"sedeId\": \"b9562d90-0128-40c5-99de-9377ae5f696e\",\r\n  \"cajonId\": \"f6a7e9b5-2d8c-47f4-a8af-f3c319449756\",\r\n  \"nuevoTipo\": \"electrico\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}Asignacion/cajon/cambiar-tipo",
+							"host": [
+								"{{base_url}}Asignacion"
+							],
+							"path": [
+								"cajon",
+								"cambiar-tipo"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Exito #1",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"sedeId\": \"b9562d90-0128-40c5-99de-9377ae5f696e\",\r\n  \"cajonId\": \"f6a7e9b5-2d8c-47f4-a8af-f3c319449756\",\r\n  \"nuevoTipo\": \"electrico\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}Asignacion/cajon/cambiar-tipo",
+									"host": [
+										"{{base_url}}Asignacion"
+									],
+									"path": [
+										"cajon",
+										"cambiar-tipo"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 28 Nov 2025 04:31:41 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": false,\n    \"msg\": \"Tipo de cajón actualizado exitosamente a 'electrico'\",\n    \"data\": {\n        \"cajonId\": \"f6a7e9b5-2d8c-47f4-a8af-f3c319449756\",\n        \"numeroCajon\": \"N1-4\",\n        \"tipo\": \"electrico\",\n        \"estadoActual\": \"libre\",\n        \"nivelId\": \"06919bf0-19d3-45bd-a540-22d2247bd927\",\n        \"numeroPiso\": 1,\n        \"ticketActualId\": null\n    }\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "id",
+			"value": "1"
+		},
+		{
+			"key": "base_url",
+			"value": "https://template.postman-echo.com"
+		},
+		{
+			"key": "token",
+			"value": ""
+		}
+	]
+}

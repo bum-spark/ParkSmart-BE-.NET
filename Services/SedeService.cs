@@ -156,23 +156,18 @@ private readonly ParkSmartDbContext _context;
         var todosLosCajones = sede.niveles.SelectMany(n => n.cajones).ToList();
         var totalCajones = todosLosCajones.Count();
 
-        // Contar cajones con tickets activos
         var cajonesConTicketActivo = todosLosCajones
             .Count(c => c.tickets.Any(t => t.estado == "activo"));
 
-        // Contar cajones con reservas pendientes (que no tengan ya un ticket activo)
         var cajonesConReservaPendiente = todosLosCajones
             .Count(c => c.reservas.Any(r => r.estado == "pendiente") && 
                        !c.tickets.Any(t => t.estado == "activo"));
 
-        // Total ocupados = tickets activos + reservas pendientes
         var cajonesOcupados = cajonesConTicketActivo + cajonesConReservaPendiente;
         var cajonesLibres = totalCajones - cajonesOcupados;
 
-        // Fecha de hoy usando hora local de México
         var hoy = FechaHelper.AhoraLocal().Date;
 
-        // Ingresos del día por tickets pagados
         var ingresosTickets = todosLosCajones
             .SelectMany(c => c.tickets)
             .Where(t => t.horaSalida.HasValue && 
@@ -180,7 +175,6 @@ private readonly ParkSmartDbContext _context;
                        t.estado == "pagado")
             .Sum(t => t.montoTotal ?? 0);
 
-        // Ingresos del día por reservas completadas (calculado: tarifa * duración)
         var ingresosReservas = todosLosCajones
             .SelectMany(c => c.reservas)
             .Where(r => r.fechaReserva.Date == hoy && r.estado == "completado")

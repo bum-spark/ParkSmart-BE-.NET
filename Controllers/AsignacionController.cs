@@ -82,9 +82,9 @@ namespace MyApp.Namespace
 
         [HttpPost("cajon-automatico")]
         [Authorize(Roles = "Admin,Gerente,Empleado")]
-        public async Task<IActionResult> AsignarCajonAutomatico([FromBody] AsignarCajonAutomaticoDTO dto)
+        public async Task<IActionResult> AsignarCajonAutomatico([FromBody] AsignarCajonAutomaticoDTO data)
         {
-            if (string.IsNullOrWhiteSpace(dto.placaVehiculo))
+            if (string.IsNullOrWhiteSpace(data.placaVehiculo))
             {
                 return BadRequest(new
                 {
@@ -93,7 +93,7 @@ namespace MyApp.Namespace
                 });
             }
 
-            var asignacion = await _asignacionService.AsignarCajonAutomatico(dto);
+            var asignacion = await _asignacionService.AsignarCajonAutomatico(data);
 
             if (asignacion == null)
             {
@@ -114,9 +114,9 @@ namespace MyApp.Namespace
 
         [HttpPost("reserva")]
         [Authorize(Roles = "Admin,Gerente,Empleado")]
-        public async Task<IActionResult> CrearReserva([FromBody] CrearReservaDTO dto)
+        public async Task<IActionResult> CrearReserva([FromBody] CrearReservaDTO reservaData)
         {
-            if (string.IsNullOrWhiteSpace(dto.placaVehiculo))
+            if (string.IsNullOrWhiteSpace(reservaData.placaVehiculo))
             {
                 return BadRequest(new
                 {
@@ -125,7 +125,7 @@ namespace MyApp.Namespace
                 });
             }
 
-            if (dto.duracionHoras <= 0)
+            if (reservaData.duracionHoras <= 0)
             {
                 return BadRequest(new
                 {
@@ -145,7 +145,7 @@ namespace MyApp.Namespace
 
             var usuarioId = Guid.Parse(userIdClaim.Value);
 
-            var reserva = await _asignacionService.CrearReserva(dto, usuarioId);
+            var reserva = await _asignacionService.CrearReserva(reservaData, usuarioId);
 
             if (reserva == null)
             {

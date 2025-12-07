@@ -116,7 +116,7 @@ public class AsignacionCajonService : IAsignacionCajonService
 
             await _context.SaveChangesAsync();
 
-            var nivelCompleto = await _context.Niveles
+            var nivelCajon = await _context.Niveles
                 .FirstOrDefaultAsync(n => n.nivelId == cajonSeleccionado.nivelId);
 
             return new AsignacionCajonDTO
@@ -125,7 +125,7 @@ public class AsignacionCajonService : IAsignacionCajonService
                 cajonId = cajonSeleccionado.cajonId,
                 numeroCajon = cajonSeleccionado.numeroCajon,
                 tipoCajon = cajonSeleccionado.tipo,
-                numeroPiso = nivelCompleto?.numeroPiso ?? 0,
+                numeroPiso = nivelCajon.numeroPiso,
                 placaVehiculo = ticket.placaVehiculo,
                 horaEntrada = ticket.horaEntrada
             };
@@ -174,7 +174,6 @@ public class AsignacionCajonService : IAsignacionCajonService
 
             if (reservaConflicto != null) return null;
 
-            // Crear la reserva con fecha actual del sistema
             var reserva = new Reserva
             {
                 placaVehiculo = dto.placaVehiculo,

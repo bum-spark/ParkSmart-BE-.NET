@@ -128,7 +128,6 @@ public class AuthService : IAuthService
             new Claim(JwtRegisteredClaimNames.Name, usuario.nombreCompleto),
             new Claim(JwtRegisteredClaimNames.Email, usuario.email),
             new Claim(ClaimTypes.Role, usuario.rol)
-            //new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
         };
 
         var token = new JwtSecurityToken(

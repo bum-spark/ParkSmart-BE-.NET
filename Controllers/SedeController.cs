@@ -161,6 +161,7 @@ namespace MyApp.Namespace
         }
 
         [HttpGet("{id}/estadisticas")]
+        [Authorize(Roles = "Admin,Gerente,Empleado")]
         public async Task<IActionResult> ObtenerEstadisticas(Guid id)
         {
             var errorAcceso = VerificarAccesoUsuario(id);
